@@ -1,4 +1,4 @@
-# 5x-team
+# 5X-Team-Code
 
 Plugin do Claude Code que instala um protocolo de desenvolvimento **baseado em
 evidência** em qualquer projeto, com uma linha de comando.
