@@ -161,15 +161,15 @@ def escrever(base):
 
 
 def imprimir(base, cabecalho):
-    partes = [cabecalho]
+    """Deriva o estado na hora e imprime. Nao le foto velha do disco: o vault pode
+    ter mudado fora desta sessao, e o ESTADO.md pode nem existir ainda."""
     index = base / "memory" / "INDEX.md"
-    estado = base / "memory" / "ESTADO.md"
+    if not index.exists() and not (base / "memory").is_dir():
+        return  # sem vault: nada a injetar, silencio e a resposta certa
+    partes = [cabecalho]
     if index.exists():
         partes += ["", "### memory/INDEX.md", "", index.read_text(encoding="utf-8")]
-    if estado.exists():
-        partes += ["", "### memory/ESTADO.md", "", estado.read_text(encoding="utf-8")]
-    if not index.exists() and not estado.exists():
-        return  # sem vault: nada a injetar, silencio e a resposta certa
+    partes += ["", "### memory/ESTADO.md", "", montar(base)]
     print("\n".join(partes))
 
 

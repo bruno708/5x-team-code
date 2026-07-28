@@ -257,6 +257,33 @@ class TestEstado(unittest.TestCase):
             texto = (base / "memory" / "ESTADO.md").read_text(encoding="utf-8")
             self.assertEqual(texto.count("## Onde estamos"), 1)
 
+    def test_read_deriva_mesmo_sem_estado_md_no_disco(self):
+        """SessionStart nao pode injetar vazio so porque ESTADO.md ainda nao existe."""
+        with tempfile.TemporaryDirectory() as d:
+            base = self.montar_projeto(d)
+            self.assertFalse((base / "memory" / "ESTADO.md").exists())
+            env = {**os.environ, "CLAUDE_PROJECT_DIR": str(base)}
+            r = subprocess.run([sys.executable, str(SCRIPTS / "5x-state.py"), "--read"],
+                               capture_output=True, text=True, env=env)
+            self.assertEqual(r.returncode, 0, r.stderr)
+            self.assertIn("- [ ] H1 viva", r.stdout)
+            self.assertFalse((base / "memory" / "ESTADO.md").exists(),
+                             "--read nao pode escrever no disco")
+
+    def test_read_reflete_mudanca_no_vault_sem_write(self):
+        with tempfile.TemporaryDirectory() as d:
+            base = self.montar_projeto(d)
+            env = {**os.environ, "CLAUDE_PROJECT_DIR": str(base)}
+            subprocess.run([sys.executable, str(SCRIPTS / "5x-state.py"), "--write"],
+                           capture_output=True, text=True, env=env)
+            (base / "memory" / "hipoteses" / "H1.md").write_text(
+                "---\nstatus: confirmada\nid: H1\n---\n\n# H1 — decode roda duas vezes\n",
+                encoding="utf-8")
+            r = subprocess.run([sys.executable, str(SCRIPTS / "5x-state.py"), "--read"],
+                               capture_output=True, text=True, env=env)
+            self.assertIn("- [x] H1 confirmada", r.stdout)
+            self.assertNotIn("- [ ] H1 viva", r.stdout)
+
     def test_silencioso_sem_vault(self):
         with tempfile.TemporaryDirectory() as d:
             env = {**os.environ, "CLAUDE_PROJECT_DIR": d}
