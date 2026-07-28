@@ -124,6 +124,22 @@ O que é nosso: a camada cognitiva, o contrato de evidência, o loop de
 convergência com corte em 3 rodadas, a regra de ownership nas ondas, e a escada
 de testes até ambiente real.
 
+## Permissões
+
+Os scripts viram comandos bare (`5x-bootstrap`, `5x-waves`, `5x-gate`…) porque o
+`bin/` do plugin entra no PATH do Bash. Na primeira vez que um deles roda, o
+Claude Code pede aprovação — escolha "sempre permitir" e não pergunta mais.
+
+Path absoluto para dentro do plugin **não funciona**: o harness bloqueia acesso a
+arquivo fora do diretório do projeto, e o comando trava sem criar nada. Por isso
+tudo passa pelo `bin/`.
+
+Para liberar de uma vez em `.claude/settings.json` do projeto:
+
+```json
+{ "permissions": { "allow": ["Bash(5x-bootstrap:*)", "Bash(5x-waves:*)", "Bash(5x-validate:*)", "Bash(5x-state:*)", "Bash(5x-cost:*)", "Bash(5x-gate:*)", "Bash(5x-worktree:*)"] } }
+```
+
 ## Desenvolver o plugin
 
 `version` no `plugin.json` **pina o cache**: com `1.0.0` fixo, editar o repositório
