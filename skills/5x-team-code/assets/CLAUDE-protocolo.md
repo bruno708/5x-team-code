@@ -1,4 +1,4 @@
-<!-- 5x-team protocolo v1.0.0 -->
+<!-- 5x-team protocolo v1.0.1 -->
 <!-- ══════════════════════════════════════════════════════════════
      BLOCO DE PROTOCOLO — importado, igual em todo projeto.
      Não edite aqui. Edite na skill e reimporte.

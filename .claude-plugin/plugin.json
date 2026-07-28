@@ -2,12 +2,12 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "5x-team",
   "displayName": "5x Team",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Protocolo de desenvolvimento baseado em evidencia: diagnostico por hipoteses falseaveis em paralelo, implementacao em worktrees isoladas, escada de testes ate ambiente real e crivo sobre evidencia de maquina.",
   "author": {
     "name": "Bruno Trevisan"
   },
-  "license": "MIT",
+  "license": "Proprietary",
   "keywords": [
     "protocolo",
     "diagnostico",

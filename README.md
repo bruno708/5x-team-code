@@ -2,21 +2,66 @@
 
 # 5X-Team-Code
 
-Plugin do Claude Code que instala um protocolo de desenvolvimento **baseado em
-evidência** em qualquer projeto, com uma linha de comando.
+**Um time de engenharia dentro do seu Claude Code.**
 
-A regra que governa tudo: **narração não é prova.**
+O 5X-Team-Code transforma o Claude de um assistente que responde em um time que
+trabalha: um coordenador que pensa, levanta hipóteses e interpreta evidência — e
+subagents que executam em paralelo, cada um isolado no seu pedaço, devolvendo
+prova estruturada em vez de opinião.
+
+A regra que governa tudo: **narração não é prova.** Nada é dado como pronto sem
+exit code, diff, saída bruta ou imagem.
+
+## Como funciona
+
+Dois modos, mesmo motor. **Diagnóstico**: o bug vira hipóteses falseáveis,
+testadas em paralelo por investigadores somente leitura — em até 3 rodadas a
+causa aparece, ou o protocolo instrumenta em vez de continuar chutando.
+**Implementação**: o plano vira ondas de tarefas paralelas, cada uma numa
+worktree isolada com seus próprios arquivos, subindo uma escada de testes que só
+termina em **ambiente real** — navegador de verdade, API de verdade.
+
+Entre sessões, o projeto **lembra**: hipóteses testadas, experimentos medidos e
+decisões ficam num vault que o plugin injeta automaticamente na abertura de cada
+sessão. Você fecha o terminal na terça e retoma na quinta do ponto exato.
+
+## O que você ganha
+
+- **Custo sob controle.** O modelo forte pensa; a execução e a varredura vão
+  para subagents, que podem rodar em modelos mais baratos. Tudo que é
+  determinístico — validar contrato, montar ondas, detectar instrumento
+  esquecido — é script, e script custa zero token. O `/5x-custo` mede o gasto
+  real de cada ciclo, por tarefa e por modelo: número, não opinião.
+- **Autonomia com freio.** O time trabalha sozinho dentro do ciclo, mas para e
+  pergunta em todo limite que gasta dinheiro ou muda estado: antes do fan-out,
+  antes de implementar, antes de qualquer ação de produção.
+- **Velocidade.** Tarefas independentes rodam ao mesmo tempo. Duas tarefas que
+  tocam o mesmo arquivo nunca rodam juntas — regra forçada por script, não por
+  boa vontade do modelo.
+- **Confiabilidade.** Todo retorno de subagent é validado contra JSON Schema, e
+  o ciclo fecha num crivo montado sobre evidência de máquina — não sobre o
+  relato do agente a respeito do próprio trabalho.
 
 ## Instalar
 
-Cole no Claude Code (ou peça: *"instala o plugin 5x-team desse repositório"*):
+### O jeito mais fácil
+
+Cole o link deste repositório no Claude Code e peça:
+
+> instala esse plugin pra mim: https://github.com/bruno708/5x-team-code
+
+O Claude lê este README e instala sozinho.
+
+### Manual
 
 ```bash
 claude plugin marketplace add bruno708/5x-team-code
 claude plugin install 5x-team@5x-team
 ```
 
-Depois, dentro do seu projeto, diga **"inicia o protocolo 5x aqui"** — ou rode:
+### Ativar no seu projeto
+
+Dentro do projeto, diga **"inicia o protocolo 5x aqui"** — ou rode:
 
 ```
 /5x-init
@@ -178,4 +223,13 @@ usuário receber a atualização.
 
 ## Licença
 
-MIT. Ver [LICENSE](LICENSE).
+**Software proprietário.** Este produto é vendido única e exclusivamente por
+**Bruno Trevisan**, que detém com exclusividade os direitos de distribuição.
+
+A compra dá direito de **uso**, não de redistribuição: é proibido repassar,
+revender, sublicenciar ou distribuir informalmente este plugin, no todo ou em
+parte, por qualquer meio. Ver [LICENSE](LICENSE).
+
+As dependências externas (caveman, ponytail) permanecem sob as licenças MIT dos
+respectivos autores — elas não fazem parte deste produto, apenas são instaladas
+e configuradas por ele.

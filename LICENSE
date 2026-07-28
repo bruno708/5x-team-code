@@ -1,21 +1,29 @@
-MIT License
+LICENCA PROPRIETARIA — 5X-Team-Code
 
-Copyright (c) 2026 Bruno Trevisan
+Copyright (c) 2026 Bruno Trevisan. Todos os direitos reservados.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Este software e um produto comercial, vendido unica e exclusivamente por
+Bruno Trevisan, que detem com exclusividade os direitos de distribuicao.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. USO. A aquisicao junto a Bruno Trevisan concede ao comprador uma licenca
+   pessoal, nao exclusiva e intransferivel de instalar e usar o software nos
+   proprios projetos.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. RESTRICOES. E proibido, sem autorizacao previa e por escrito de Bruno
+   Trevisan:
+   a) redistribuir, repassar ou compartilhar o software, no todo ou em parte,
+      por qualquer meio, gratuito ou pago;
+   b) revender, alugar, sublicenciar ou incorporar o software em produto de
+      terceiros;
+   c) publicar copias ou derivados deste repositorio.
+
+3. DEPENDENCIAS DE TERCEIROS. As ferramentas externas que este software
+   instala e configura (caveman, ponytail) nao fazem parte deste produto e
+   permanecem sob as licencas MIT dos respectivos autores.
+
+4. SEM GARANTIA. O software e fornecido "no estado em que se encontra", sem
+   garantia de qualquer tipo. Em nenhuma hipotese o autor respondera por danos
+   decorrentes do uso.
+
+Distribuicao autorizada somente por: Bruno Trevisan.
+Contato: bru.piccin@gmail.com

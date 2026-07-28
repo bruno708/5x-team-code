@@ -10,10 +10,15 @@
       "name": "5x-team",
       "source": "./",
       "description": "Protocolo de desenvolvimento baseado em evidencia. Diagnostico por hipoteses, implementacao em ondas, crivo sobre evidencia de maquina.",
-      "version": "1.0.0",
-      "license": "MIT",
+      "version": "1.0.1",
+      "license": "Proprietary",
       "category": "workflow",
-      "tags": ["protocolo", "diagnostico", "evidencia", "worktree"]
+      "tags": [
+        "protocolo",
+        "diagnostico",
+        "evidencia",
+        "worktree"
+      ]
     }
   ]
 }
