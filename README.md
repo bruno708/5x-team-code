@@ -1,4 +1,4 @@
-![5x-team-code — Claude Code Team, por Bruno Trevisan](docs/banner.png)
+![5x-team-code — Claude Code Team, por Bruno Trevisan](docs/banner-2.png)
 
 # 5X-Team-Code
 
