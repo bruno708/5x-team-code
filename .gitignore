@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+.5x/
+.claude/settings.json.bak-*

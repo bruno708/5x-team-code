@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Retorno de execucao de tarefa",
+  "type": "object",
+  "required": ["tarefa", "criterio", "atendido", "prova"],
+  "additionalProperties": false,
+  "properties": {
+    "tarefa": { "type": "string", "description": "Identificador. Ex: T3" },
+    "criterio": { "type": "string", "description": "Criterio de aceite, condicao verificavel" },
+    "atendido": { "type": "boolean", "description": "Honesto. Nao maquie criterio nao atendido" },
+    "prova": {
+      "type": "object",
+      "required": ["comando", "exit_code", "saida"],
+      "properties": {
+        "teste": { "type": "string", "description": "Caminho do teste que prova o criterio" },
+        "comando": { "type": "string" },
+        "exit_code": { "type": "integer" },
+        "saida": { "type": "string", "description": "Bruta, colada, nao resumida" }
+      }
+    },
+    "arquivos_tocados": {
+      "type": "array",
+      "description": "Deve ser subconjunto dos arquivos que a tarefa possui",
+      "items": { "type": "string" }
+    },
+    "diff": { "type": "string" },
+    "worktree": { "type": "string" },
+    "branch": { "type": "string" },
+    "instrumentos_criados": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["arquivo", "descricao"],
+        "properties": {
+          "arquivo": { "type": "string" },
+          "descricao": { "type": "string" }
+        }
+      }
+    },
+    "divida_declarada": {
+      "type": "array",
+      "description": "Atalhos conscientes com caminho de upgrade",
+      "items": { "type": "string" }
+    },
+    "fora_de_escopo": {
+      "type": "array",
+      "description": "Problemas vistos e NAO corrigidos. Reportar, nunca consertar",
+      "items": { "type": "string" }
+    },
+    "bloqueio": {
+      "type": "string",
+      "description": "Preenchido se precisou parar. Ex: precisaria tocar arquivo de outra tarefa"
+    }
+  }
+}

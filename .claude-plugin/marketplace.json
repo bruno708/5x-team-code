@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "5x-team",
+  "description": "Marketplace do protocolo 5x-team.",
+  "owner": {
+    "name": "Bruno Trevisan"
+  },
+  "plugins": [
+    {
+      "name": "5x-team",
+      "source": "./",
+      "description": "Protocolo de desenvolvimento baseado em evidencia. Diagnostico por hipoteses, implementacao em ondas, crivo sobre evidencia de maquina.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "category": "workflow",
+      "tags": ["protocolo", "diagnostico", "evidencia", "worktree"]
+    }
+  ]
+}

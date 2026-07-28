@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Retorno de teste de hipótese",
+  "type": "object",
+  "required": ["hipotese", "veredito", "evidencia", "fatos_novos"],
+  "additionalProperties": false,
+  "properties": {
+    "hipotese": { "type": "string", "description": "Identificador. Ex: H3" },
+    "enunciado": { "type": "string", "description": "A hipótese como enunciada, falseável" },
+    "veredito": {
+      "type": "string",
+      "enum": ["confirmada", "refutada", "inconclusiva"],
+      "description": "Inconclusiva honesta vale mais que confirmada inventada"
+    },
+    "evidencia": {
+      "type": "object",
+      "required": ["observado", "onde"],
+      "properties": {
+        "observado": { "type": "string", "description": "O que foi visto. Fato, não interpretação" },
+        "onde": { "type": "string", "description": "arquivo:linha, endpoint, ou ponto de medição" },
+        "reproduzir": { "type": "string", "description": "Comando ou passos para outra pessoa ver o mesmo" },
+        "saida_bruta": { "type": "string", "description": "Output colado, não resumido" },
+        "exit_code": { "type": "integer" }
+      }
+    },
+    "fatos_novos": {
+      "type": "array",
+      "description": "MOTOR DE CONVERGENCIA. O que apareceu e nao fazia parte da hipotese. E daqui que sai a rodada seguinte",
+      "items": { "type": "string" }
+    },
+    "instrumentos_criados": {
+      "type": "array",
+      "description": "Instrumentos de observacao escritos, todos marcados com DIAG:",
+      "items": {
+        "type": "object",
+        "required": ["arquivo", "descricao"],
+        "properties": {
+          "arquivo": { "type": "string" },
+          "descricao": { "type": "string" },
+          "marcador": { "type": "string", "default": "DIAG:" }
+        }
+      }
+    },
+    "confianca": {
+      "type": "string",
+      "enum": ["verificado", "inferido"],
+      "description": "verificado = executou e observou. inferido = leu e acredita"
+    },
+    "custo": {
+      "type": "object",
+      "properties": {
+        "duracao_s": { "type": "number" },
+        "tokens": { "type": "integer" }
+      }
+    }
+  }
+}
