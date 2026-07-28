@@ -124,6 +124,19 @@ O que é nosso: a camada cognitiva, o contrato de evidência, o loop de
 convergência com corte em 3 rodadas, a regra de ownership nas ondas, e a escada
 de testes até ambiente real.
 
+## Desenvolver o plugin
+
+`version` no `plugin.json` **pina o cache**: com `1.0.0` fixo, editar o repositório
+não propaga para a instalação — `claude plugin update` responde *already at the
+latest version*. Para ver uma edição valer:
+
+```bash
+claude plugin uninstall 5x-team@5x-team && claude plugin install 5x-team@5x-team
+```
+
+Ou bumpe a versão no `plugin.json`. Em release, bumpe sempre — é o que faz o
+usuário receber a atualização.
+
 ## Divergências entre o briefing e a documentação oficial
 
 A documentação vence, e aqui está o que mudou:
