@@ -15,7 +15,7 @@ for a in "$@"; do
   case "$a" in
     --check) CHECK=1 ;;
     --with-mem) WITH_MEM=1 ;;
-    -h|--help) sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help) sed -n '2,9p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     *) echo "erro: argumento desconhecido '$a'" >&2; exit 2 ;;
   esac
 done

@@ -3,7 +3,7 @@ description: Monta o relatorio de crivo — evidencia de maquina, nao narracao
 ---
 
 Monte o relatório de crivo do ciclo. Formato completo em
-`${CLAUDE_PLUGIN_ROOT}/skills/5x-team-code/references/crivo.md`.
+a referência `crivo` (leia com `5x-ref crivo`).
 
 **Se o relatório for narração do agente, o crivo é teatro.** Você está pedindo
 para o usuário confiar na redação de quem fez a prova e se autocorrigiu.

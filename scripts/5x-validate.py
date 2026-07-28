@@ -7,6 +7,7 @@ Uso:
     5x-validate.py retorno.json --schema diagnostico
     5x-validate.py retorno.json --schema implementacao
     5x-validate.py retorno.json --schema ./caminho/custom.schema.json
+    5x-validate.py --schema diagnostico --print   # imprime o schema (o modelo nao le o arquivo)
     cat retorno.json | 5x-validate.py - --schema diagnostico
 
 Exit 0 valido. Exit 1 invalido, com os campos apontados. Exit 2 erro de uso.
@@ -94,12 +95,20 @@ def resolver_schema(nome):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("retorno", help="arquivo JSON do subagent, ou '-' para stdin")
+    p.add_argument("retorno", nargs="?", help="arquivo JSON do subagent, ou '-' para stdin")
     p.add_argument("--schema", required=True, help="diagnostico | implementacao | caminho .json")
+    p.add_argument("--print", dest="imprimir", action="store_true",
+                   help="imprime o schema e sai — para quem nao consegue ler o arquivo")
     args = p.parse_args()
 
     schema_path = resolver_schema(args.schema)
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
+
+    if args.imprimir:
+        print(json.dumps(schema, ensure_ascii=False, indent=2))
+        return
+    if not args.retorno:
+        p.error("informe o arquivo de retorno (ou '-'), ou use --print")
 
     bruto = sys.stdin.read() if args.retorno == "-" else Path(args.retorno).read_text(encoding="utf-8")
     try:

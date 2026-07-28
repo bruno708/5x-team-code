@@ -5,7 +5,7 @@ argument-hint: [descricao do bug ou comportamento estranho]
 
 Modo diagnóstico. Pergunta aberta: **"por que isso está acontecendo?"**
 
-Siga `${CLAUDE_PLUGIN_ROOT}/skills/5x-team-code/references/diagnostico.md`.
+Siga a referência `diagnostico` (leia com `5x-ref diagnostico`).
 
 Alvo: $ARGUMENTS
 

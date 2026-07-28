@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+# Imprime uma referencia do protocolo. O modelo nao consegue LER os arquivos do
+# plugin (o harness gateia acesso fora do projeto); via Bash bare funciona.
+#
+#   5x-ref                 # lista as referencias
+#   5x-ref diagnostico     # imprime references/diagnostico.md
+dir="$(dirname "$0")/../skills/5x-team-code/references"
+if [ $# -eq 0 ]; then
+  for f in "$dir"/*.md; do basename "$f" .md; done
+  exit 0
+fi
+if [ ! -f "$dir/$1.md" ]; then
+  echo "erro: referencia '$1' nao existe. Disponiveis:" >&2
+  for f in "$dir"/*.md; do basename "$f" .md >&2; done
+  exit 1
+fi
+cat "$dir/$1.md"

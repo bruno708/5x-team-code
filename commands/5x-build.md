@@ -5,7 +5,7 @@ argument-hint: [o que implementar, com a causa ja conhecida]
 
 Modo implementação. Pergunta aberta: **"isso funciona?"** — causa conhecida.
 
-Siga `${CLAUDE_PLUGIN_ROOT}/skills/5x-team-code/references/implementacao.md`.
+Siga a referência `implementacao` (leia com `5x-ref implementacao`).
 
 Alvo: $ARGUMENTS
 

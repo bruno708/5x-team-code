@@ -18,7 +18,7 @@ Você vai executar UMA tarefa e provar que ela funciona.
 
 ## Entrega
 
-JSON válido contra `schemas/implementacao.schema.json` do plugin 5x-team.
+JSON válido contra o schema `implementacao`. Veja o contrato com `5x-validate --schema implementacao --print` — você não consegue ler o arquivo do schema.
 Valide antes de devolver:
 
 ```bash

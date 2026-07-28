@@ -21,7 +21,7 @@ Você vai testar UMA hipótese e reportar evidência. Você **não conserta nada
 
 ## Entrega
 
-JSON válido contra `schemas/diagnostico.schema.json` do plugin 5x-team.
+JSON válido contra o schema `diagnostico`. Veja o contrato com `5x-validate --schema diagnostico --print` — você não consegue ler o arquivo do schema.
 Cole a saída bruta dos comandos — não resuma. Valide antes de devolver:
 
 ```bash

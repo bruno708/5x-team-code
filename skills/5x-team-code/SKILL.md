@@ -21,7 +21,7 @@ ls CLAUDE.md memory/ design/ 2>/dev/null
 
 | Situação | Ação |
 |---|---|
-| Falta `memory/` ou `CLAUDE.md` | **Bootstrap primeiro** → `/5x-init`, ou leia `references/bootstrap.md` |
+| Falta `memory/` ou `CLAUDE.md` | **Bootstrap primeiro** → `/5x-init`, ou leia com `5x-ref bootstrap` |
 | Estrutura existe | Leia `memory/INDEX.md` e siga para o modo certo |
 
 **Nunca carregue o vault inteiro no contexto.** O `INDEX.md` é o mapa; o conteúdo vem por relevância, sob demanda. Carregar tudo toda sessão contradiz a disciplina de token do próprio protocolo.
@@ -34,9 +34,9 @@ Escolha pelo tipo de pergunta que está aberta:
 
 | Pergunta do usuário | Modo | Referência |
 |---|---|---|
-| "por que isso está acontecendo?" | **Diagnóstico** (`/5x-diag`) | `references/diagnostico.md` |
-| "implementa isso" (causa já conhecida) | **Implementação** (`/5x-build`) | `references/implementacao.md` |
-| "instala o protocolo aqui" | **Bootstrap** (`/5x-init`) | `references/bootstrap.md` |
+| "por que isso está acontecendo?" | **Diagnóstico** (`/5x-diag`) | `5x-ref diagnostico` |
+| "implementa isso" (causa já conhecida) | **Implementação** (`/5x-build`) | `5x-ref implementacao` |
+| "instala o protocolo aqui" | **Bootstrap** (`/5x-init`) | `5x-ref bootstrap` |
 
 Diagnóstico e implementação são o mesmo motor. Muda **uma coisa: permissão de escrita no código-alvo.**
 
@@ -120,7 +120,8 @@ memory/
 
 **Hipótese morta é o item mais barato do sistema.** Custa uma linha e economiza rodadas inteiras: antes de gerar hipóteses novas, leia o que já foi refutado neste projeto.
 
-Templates em `assets/hipotese.template.md` e `assets/experimento.template.md`.
+Templates em `memory/templates/` (o `5x-bootstrap` os coloca lá — os assets do
+plugin você não consegue ler).
 
 ---
 
@@ -177,6 +178,7 @@ Python 3 stdlib, com `--help`, saída JSON e exit code significativo.
 | `5x-gate` | grep-gate de instrumentos |
 | `5x-worktree` | cria e remove worktrees por tarefa |
 | `5x-bootstrap` | cria a estrutura do protocolo no projeto |
+| `5x-ref` | imprime uma referência do protocolo (`5x-ref` lista) |
 | `5x-deps-install` | instala e configura ponytail e caveman |
 
 ---
@@ -216,13 +218,13 @@ Ordem obrigatória, do barato ao caro:
 
 Conserto feito no degrau 4 ou 5 é código escrito depois dos testes passarem. **Rejoga do degrau 1.**
 
-Detalhes e matriz de ambiente real em `references/implementacao.md`.
+Detalhes e matriz de ambiente real via `5x-ref implementacao`.
 
 ---
 
 ## Crivo
 
-Fim de ciclo, sempre. Formato completo em `references/crivo.md`.
+Fim de ciclo, sempre. Formato completo via `5x-ref crivo`.
 
 O relatório entrega evidência, não resumo. E **ação de produção — deploy, migration, credencial — exige aprovação nomeada e separada.** O agente nunca decide sozinho.
 

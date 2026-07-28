@@ -215,6 +215,19 @@ class TestValidacao(unittest.TestCase):
             self.assertEqual(r.returncode, 0, r.stdout)
 
 
+class TestValidatePrint(unittest.TestCase):
+    def test_print_imprime_o_schema(self):
+        """Subagent nao le o arquivo do schema; --print e a fonte do contrato."""
+        r = rodar("5x-validate.py", "--schema", "diagnostico", "--print")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        schema = json.loads(r.stdout)
+        self.assertIn("fatos_novos", schema["required"])
+
+    def test_sem_retorno_e_sem_print_erra(self):
+        r = rodar("5x-validate.py", "--schema", "diagnostico")
+        self.assertEqual(r.returncode, 2)
+
+
 class TestEstado(unittest.TestCase):
     def montar_projeto(self, d):
         base = Path(d)
@@ -377,6 +390,29 @@ class TestBin(unittest.TestCase):
                     self.fail(f"{md.name}: chama script por path absoluto -> {linha.strip()}")
 
 
+class TestRef(unittest.TestCase):
+    def test_lista_e_imprime(self):
+        env = {**os.environ, "PATH": f"{RAIZ / 'bin'}:{os.environ['PATH']}"}
+        r = subprocess.run(["5x-ref"], capture_output=True, text=True, env=env)
+        self.assertEqual(sorted(r.stdout.split()),
+                         ["bootstrap", "crivo", "diagnostico", "implementacao"])
+        r = subprocess.run(["5x-ref", "crivo"], capture_output=True, text=True, env=env)
+        self.assertEqual(r.returncode, 0)
+        self.assertIn("# Crivo", r.stdout)
+
+    def test_inexistente_sai_1(self):
+        env = {**os.environ, "PATH": f"{RAIZ / 'bin'}:{os.environ['PATH']}"}
+        r = subprocess.run(["5x-ref", "nada"], capture_output=True, text=True, env=env)
+        self.assertEqual(r.returncode, 1)
+
+    def test_docs_nao_mandam_ler_path_do_plugin(self):
+        """Toda referencia a arquivo do plugin em comando/skill deve passar por 5x-ref."""
+        alvos = list((RAIZ / "commands").glob("*.md")) + [RAIZ / "skills/5x-team-code/SKILL.md"]
+        for md in alvos:
+            texto = md.read_text(encoding="utf-8")
+            self.assertNotIn("${CLAUDE_PLUGIN_ROOT}/skills", texto, md.name)
+
+
 class TestGate(unittest.TestCase):
     def repo(self, d, conteudo):
         base = Path(d)
@@ -501,6 +537,20 @@ class TestWorktree(unittest.TestCase):
             self.assertNotEqual(saidas[0]["worktree"], saidas[1]["worktree"])
             for s in saidas:
                 self.assertTrue(Path(s["worktree"]).is_dir())
+
+    def test_remove_sem_force(self):
+        with tempfile.TemporaryDirectory() as d:
+            base = Path(d) / "repo"
+            base.mkdir()
+            subprocess.run(["git", "init", "-q"], cwd=base, check=True)
+            subprocess.run(["git", "-c", "user.email=t@t", "-c", "user.name=t",
+                            "commit", "-q", "--allow-empty", "-m", "raiz"], cwd=base, check=True)
+            subprocess.run(["bash", str(SCRIPTS / "5x-worktree.sh"), "add", "T1"],
+                           capture_output=True, text=True, cwd=base)
+            r = subprocess.run(["bash", str(SCRIPTS / "5x-worktree.sh"), "remove", "T1"],
+                               capture_output=True, text=True, cwd=base)
+            self.assertEqual(r.returncode, 0, r.stderr)
+            self.assertFalse((base.parent / "repo-wt-T1").exists())
 
     def test_branch_repetida_e_recusada(self):
         with tempfile.TemporaryDirectory() as d:

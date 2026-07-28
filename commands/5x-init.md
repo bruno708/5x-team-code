@@ -39,7 +39,7 @@ Acabou.
 
 **Projeto com código → Modo B.** É o modo diagnóstico rodando sobre o projeto
 inteiro em vez de sobre um bug. Siga
-`${CLAUDE_PLUGIN_ROOT}/skills/5x-team-code/references/bootstrap.md`:
+a referência `bootstrap` (leia com `5x-ref bootstrap`):
 
 ```
 1. REPRO          builda? sobe? o que roda hoje?

@@ -28,7 +28,7 @@ Projeto vazio → **Modo A**. Projeto com código → **Modo B**.
 
 | Bloco | Conteúdo | Muda por projeto? |
 |---|---|---|
-| **Protocolo** | copie de `assets/CLAUDE-protocolo.md` | não |
+| **Protocolo** | gravado pelo `5x-bootstrap` | não |
 | **Projeto** | stack, como rodar, convenções, o que quebra | sim |
 
 Misturar os dois faz o protocolo ser reeditado em cada projeto e derivar da origem. Mantenha separados por cabeçalho explícito.
@@ -37,11 +37,13 @@ Misturar os dois faz o protocolo ser reeditado em cada projeto e derivar da orig
 
 ## Modo A — projeto do zero
 
-1. Crie a estrutura de pastas
-2. Copie `assets/CLAUDE-protocolo.md` para o bloco de protocolo do `CLAUDE.md`
-3. Escreva o bloco de projeto com o que o usuário informar (stack, objetivo)
-4. Crie `memory/INDEX.md` vazio com as seções
-5. Crie `design/` com o design system, se já houver diretriz
+1. Rode `5x-bootstrap` — cria a estrutura, o `CLAUDE.md` com o bloco de
+   protocolo versionado, `memory/INDEX.md` e os templates. **Não copie asset a
+   mão**: você não consegue ler os arquivos do plugin, e criar estrutura é
+   determinístico — é script (Princípio 4).
+2. Escreva o bloco "Este projeto" do `CLAUDE.md` com o que o usuário informar
+   (stack, objetivo, como rodar)
+3. Preencha `design/` com o design system, se já houver diretriz
 
 Direto. Sem cerimônia.
 

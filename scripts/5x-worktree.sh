@@ -12,7 +12,7 @@
 set -euo pipefail
 
 uso() {
-  sed -n '2,12p' "$0" | sed 's/^# \{0,1\}//'
+  sed -n '2,11p' "$0" | sed 's/^# \{0,1\}//'
   exit "${1:-0}"
 }
 
@@ -41,9 +41,9 @@ case "$comando" in
     ;;
 
   remove)
-    [ $# -ge 1 ] || { echo "erro: uso: 5x-worktree.sh remove <id-tarefa>" >&2; exit 2; }
+    [ $# -ge 1 ] || { echo "erro: uso: 5x-worktree.sh remove <id-tarefa> [--force]" >&2; exit 2; }
     destino="$base/${prefixo}-wt-${1}"
-    git worktree remove "$destino" "${2:-}"
+    git worktree remove ${2:+"$2"} "$destino"
     echo "removido: $destino"
     ;;
 

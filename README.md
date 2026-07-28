@@ -137,7 +137,7 @@ tudo passa pelo `bin/`.
 Para liberar de uma vez em `.claude/settings.json` do projeto:
 
 ```json
-{ "permissions": { "allow": ["Bash(5x-bootstrap:*)", "Bash(5x-waves:*)", "Bash(5x-validate:*)", "Bash(5x-state:*)", "Bash(5x-cost:*)", "Bash(5x-gate:*)", "Bash(5x-worktree:*)"] } }
+{ "permissions": { "allow": ["Bash(5x-bootstrap:*)", "Bash(5x-waves:*)", "Bash(5x-validate:*)", "Bash(5x-state:*)", "Bash(5x-cost:*)", "Bash(5x-gate:*)", "Bash(5x-worktree:*)", "Bash(5x-ref:*)"] } }
 ```
 
 ## Desenvolver o plugin
