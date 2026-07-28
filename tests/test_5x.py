@@ -293,6 +293,63 @@ class TestEstado(unittest.TestCase):
             self.assertEqual(r.stdout.strip(), "")
 
 
+class TestBootstrap(unittest.TestCase):
+    def rodar(self, base, *extra):
+        r = rodar("5x-bootstrap.py", "--dir", str(base), *extra)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        return json.loads(r.stdout)
+
+    def test_cria_estrutura_em_projeto_vazio(self):
+        with tempfile.TemporaryDirectory() as d:
+            base = Path(d)
+            self.rodar(base)
+            for esperado in ("CLAUDE.md", "memory/INDEX.md", "memory/hipoteses",
+                             "memory/experimentos", "memory/decisoes", "design",
+                             "memory/templates/hipotese.md", "memory/templates/experimento.md"):
+                self.assertTrue((base / esperado).exists(), esperado)
+            self.assertIn("5x-team protocolo v", (base / "CLAUDE.md").read_text(encoding="utf-8"))
+
+    def test_idempotente(self):
+        with tempfile.TemporaryDirectory() as d:
+            base = Path(d)
+            self.rodar(base)
+            segunda = self.rodar(base)
+            self.assertEqual(segunda["criados"], [])
+            self.assertIn("CLAUDE.md", segunda["ja_existiam"])
+
+    def test_nao_move_nem_sobrescreve_arquivo_do_usuario(self):
+        with tempfile.TemporaryDirectory() as d:
+            base = Path(d)
+            (base / "src").mkdir()
+            (base / "src" / "app.py").write_text("print('meu codigo')\n", encoding="utf-8")
+            (base / "CLAUDE.md").write_text("# Meu CLAUDE.md antigo\n", encoding="utf-8")
+            (base / "memory").mkdir()
+            (base / "memory" / "INDEX.md").write_text("# meu index\n", encoding="utf-8")
+            antes = {p: p.read_bytes() for p in base.rglob("*") if p.is_file()}
+
+            saida = self.rodar(base)
+
+            for caminho, conteudo in antes.items():
+                self.assertTrue(caminho.exists(), f"{caminho} sumiu")
+                self.assertEqual(caminho.read_bytes(), conteudo, f"{caminho} foi alterado")
+            self.assertTrue(any("sem bloco de protocolo" in a for a in saida["avisos"]), saida["avisos"])
+
+    def test_avisa_bloco_de_versao_velha(self):
+        with tempfile.TemporaryDirectory() as d:
+            base = Path(d)
+            (base / "CLAUDE.md").write_text("<!-- 5x-team protocolo v0.1.0 -->\n# velho\n", encoding="utf-8")
+            saida = self.rodar(base)
+            self.assertTrue(any("v0.1.0" in a for a in saida["avisos"]), saida["avisos"])
+            self.assertIn("v0.1.0", (base / "CLAUDE.md").read_text(encoding="utf-8"))
+
+    def test_dry_run_nao_escreve(self):
+        with tempfile.TemporaryDirectory() as d:
+            base = Path(d)
+            saida = self.rodar(base, "--dry-run")
+            self.assertTrue(saida["criados"])
+            self.assertFalse((base / "CLAUDE.md").exists())
+
+
 class TestGate(unittest.TestCase):
     def repo(self, d, conteudo):
         base = Path(d)
