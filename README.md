@@ -1,3 +1,5 @@
+![5x-team-code — Claude Code Team, por Bruno Trevisan](docs/banner.png)
+
 # 5X-Team-Code
 
 Plugin do Claude Code que instala um protocolo de desenvolvimento **baseado em
