@@ -175,30 +175,6 @@ claude plugin uninstall 5x-team@5x-team && claude plugin install 5x-team@5x-team
 Ou bumpe a versão no `plugin.json`. Em release, bumpe sempre — é o que faz o
 usuário receber a atualização.
 
-## Divergências entre o briefing e a documentação oficial
-
-A documentação vence, e aqui está o que mudou:
-
-1. **Hooks não passam por `.claude/settings.json`.** O briefing previa backup e
-   merge do `settings.json` para registrar hooks. A documentação oficial define
-   `hooks/hooks.json` na raiz do plugin como local nativo: o Claude Code carrega
-   os hooks quando o plugin está ativo e os descarrega quando é desativado.
-   Resultado: **não tocamos no `settings.json` do usuário para registrar hook
-   nenhum**, e instalar duas vezes não pode duplicar registro. O único write em
-   `settings.json` é o `install-deps.sh`, que grava as duas variáveis de ambiente
-   do ponytail — e esse faz backup com timestamp, faz merge e é idempotente.
-
-2. **`SessionStart(compact)` não é o evento certo para restaurar.** A
-   documentação lista `PostCompact` como evento próprio. Registramos os dois:
-   `SessionStart` com matcher `compact` e o comportamento de `--restore`.
-
-3. **`timeout` de hook é em segundos, com padrão 600.** Fixado em 3 em todos,
-   como o briefing pede.
-
-4. **Agentes não estavam no briefing.** Foram adicionados dois — `5x-investigador`
-   (somente leitura) e `5x-executor` (escreve na worktree). Sem eles o
-   `PONYTAIL_SUBAGENT_MATCHER` "que casa só executores" não teria o que casar: o
-   matcher precisa de um nome de tipo de agente que exista de fato.
 
 ## Licença
 
