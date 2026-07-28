@@ -10,7 +10,7 @@ A regra que governa tudo: **narração não é prova.**
 Cole no Claude Code (ou peça: *"instala o plugin 5x-team desse repositório"*):
 
 ```bash
-claude plugin marketplace add bruno708/5x-team
+claude plugin marketplace add bruno708/5x-team-code
 claude plugin install 5x-team@5x-team
 ```
 
