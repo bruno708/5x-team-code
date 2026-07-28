@@ -11,7 +11,7 @@ assets do próprio plugin — você não consegue lê-los, o harness gateia aces
 arquivo fora do diretório do projeto.
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-bootstrap.py"
+5x-bootstrap
 ```
 
 Ele cria `CLAUDE.md` (bloco de protocolo, com marcador de versão), `memory/` com
@@ -53,7 +53,7 @@ inteiro em vez de sobre um bug. Siga
 **Pare e pergunte antes do fan-out** — ele gasta dinheiro. Estime:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-cost.py" estimate --tarefas 7 --modelo sonnet --avg-in 3000 --avg-out 800
+5x-cost estimate --tarefas 7 --modelo sonnet --avg-in 3000 --avg-out 800
 ```
 
 Toda entrada de memória nasce com `status: verificado` (executou e observou) ou
@@ -71,7 +71,7 @@ Os hooks derivam o estado daqui:
 ```bash
 mkdir -p .5x
 printf '{"fase":"bootstrap","ciclo":"bootstrap","proximo_passo":"<acao concreta>"}' > .5x/ciclo.json
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-state.py" --write
+5x-state --write
 ```
 
 ## 5. Feche

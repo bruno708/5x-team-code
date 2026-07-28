@@ -6,7 +6,7 @@ argument-hint: [--check | --with-mem]
 Instale e configure as dependências externas do protocolo:
 
 ```bash
-bash "${CLAUDE_PLUGIN_ROOT}/scripts/install-deps.sh" $ARGUMENTS
+5x-deps-install $ARGUMENTS
 ```
 
 `--check` só diagnostica. `--with-mem` inclui `claude-mem` (opcional; complementa

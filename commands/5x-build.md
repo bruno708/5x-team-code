@@ -22,7 +22,7 @@ Cada tarefa declara **critério de aceite**, **arquivos que possui** (exclusivo)
 ```bash
 mkdir -p .5x
 # .5x/plano.json: {"tasks":[{"id":"T1","criterio":"...","depends_on":[],"owns":["src/a.py"]}]}
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-waves.py" .5x/plano.json
+5x-waves .5x/plano.json
 ```
 
 **Duas tarefas com arquivo em comum nunca vão na mesma onda**, mesmo sem
@@ -34,7 +34,7 @@ Ciclo detectado → exit 1 com o ciclo apontado, e o plano está errado.
 Uma branch por worktree — o git recusa a mesma branch em check-out em dois lugares:
 
 ```bash
-bash "${CLAUDE_PLUGIN_ROOT}/scripts/5x-worktree.sh" add T1 task/t1-decoder
+5x-worktree add T1 task/t1-decoder
 ```
 
 ## Fan-out
@@ -43,16 +43,16 @@ Um subagent `5x-executor` por tarefa da onda. Cada retorno é validado e
 registrado — é daí que o hook de `SubagentStop` sabe que a onda fechou:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-validate.py" retorno.json --schema implementacao
+5x-validate retorno.json --schema implementacao
 cat retorno.json | python3 -c 'import sys,json;print(json.dumps(json.load(sys.stdin)))' >> .5x/tarefas.jsonl
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-cost.py" record --ciclo <c> --tarefa T1 --modelo sonnet --tokens-in <n> --tokens-out <n>
+5x-cost record --ciclo <c> --tarefa T1 --modelo sonnet --tokens-in <n> --tokens-out <n>
 ```
 
 ## Integração — toda vez, sem exceção
 
 ```bash
 # sobe o runtime e carrega a rota afetada, depois:
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-gate.py"
+5x-gate
 ```
 
 Build passa com JSX órfão. Compilação verde não garante que a aplicação sobe.
@@ -67,7 +67,7 @@ código escrito depois dos testes passarem: **rejoga do degrau 1**.
 ## Limpeza e crivo
 
 ```bash
-bash "${CLAUDE_PLUGIN_ROOT}/scripts/5x-worktree.sh" clean
+5x-worktree clean
 ```
 
 Tudo verde → `/5x-crivo`. Pare e pergunte antes de disparar as ondas e antes do

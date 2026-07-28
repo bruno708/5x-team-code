@@ -95,7 +95,7 @@ Todo subagent devolve JSON validado contra o schema do modo:
 **Schema sem validador é honra.** Rode o validador em todo retorno:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-validate.py" retorno.json --schema diagnostico
+5x-validate retorno.json --schema diagnostico
 ```
 
 Exit 1 aponta o campo que falta. Retorno que não passa não entra na interpretação.
@@ -134,8 +134,8 @@ O estado é **derivado, não narrado**: hipótese com `status: viva` no frontmat
 e não inventa — se o vault não diz, o campo fica vazio.
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-state.py" --write   # deriva e sobrescreve
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-state.py" --read    # imprime para injeção
+5x-state --write   # deriva e sobrescreve
+5x-state --read    # imprime para injeção
 ```
 
 Os hooks do plugin fazem isso sozinhos: injetam na abertura da sessão, salvam
@@ -165,17 +165,19 @@ Nos limites em que a próxima ação **gasta dinheiro ou muda estado**:
 
 ## Scripts
 
-Determinístico é script, nunca LLM. Todos em `${CLAUDE_PLUGIN_ROOT}/scripts/`,
+Determinístico é script, nunca LLM. Invocáveis como comando bare (o `bin/` do plugin entra no PATH do Bash),
 Python 3 stdlib, com `--help`, saída JSON e exit code significativo.
 
 | Script | Função |
 |---|---|
-| `5x-waves.py` | grafo → ondas, com a regra de ownership |
-| `5x-validate.py` | valida retorno contra o JSON Schema |
-| `5x-cost.py` | registra e soma custo real por tarefa/ciclo |
-| `5x-state.py` | deriva e lê o estado do ciclo |
-| `5x-gate.py` | grep-gate de instrumentos |
-| `5x-worktree.sh` | cria e remove worktrees por tarefa |
+| `5x-waves` | grafo → ondas, com a regra de ownership |
+| `5x-validate` | valida retorno contra o JSON Schema |
+| `5x-cost` | registra e soma custo real por tarefa/ciclo |
+| `5x-state` | deriva e lê o estado do ciclo |
+| `5x-gate` | grep-gate de instrumentos |
+| `5x-worktree` | cria e remove worktrees por tarefa |
+| `5x-bootstrap` | cria a estrutura do protocolo no projeto |
+| `5x-deps-install` | instala e configura ponytail e caveman |
 
 ---
 
@@ -186,8 +188,11 @@ Todo instrumento nasce marcado com `// DIAG:` (ou o equivalente da linguagem).
 Gate na integração:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-gate.py"   # exit 1 se sobrou instrumento
+5x-gate   # exit 1 se sobrou instrumento
 ```
+
+Os comandos acima só existem quando o plugin está ativo. Se um deles voltar
+`command not found`, o plugin não está carregado — reporte, não improvise a mão.
 
 Tem que voltar vazio, ou com justificativa explícita no crivo. **Marcador sem gate não segura nada** — merge ressuscita lixo removido.
 

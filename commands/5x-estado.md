@@ -5,8 +5,8 @@ description: Onde estamos e onde vamos — derivado do vault, nao narrado
 Imprima o estado do ciclo. Ele é **derivado** do vault, não lembrado:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-state.py" --write
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-state.py" --read
+5x-state --write
+5x-state --read
 ```
 
 Mostre a saída ao usuário como veio. Se um campo está vazio, o vault não diz —

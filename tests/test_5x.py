@@ -350,6 +350,33 @@ class TestBootstrap(unittest.TestCase):
             self.assertFalse((base / "CLAUDE.md").exists())
 
 
+class TestBin(unittest.TestCase):
+    """bin/ entra no PATH do Bash. E o que faz o comando rodar sem path absoluto —
+    sem isso o harness gateia o acesso e o /5x-init trava."""
+
+    ESPERADOS = ["5x-bootstrap", "5x-waves", "5x-validate", "5x-cost",
+                 "5x-state", "5x-gate", "5x-worktree", "5x-deps-install"]
+
+    def test_todos_os_wrappers_existem_e_sao_executaveis(self):
+        for nome in self.ESPERADOS:
+            w = RAIZ / "bin" / nome
+            self.assertTrue(w.is_file(), nome)
+            self.assertTrue(os.access(w, os.X_OK), f"{nome} nao e executavel")
+
+    def test_wrappers_rodam_via_path(self):
+        env = {**os.environ, "PATH": f"{RAIZ / 'bin'}:{os.environ['PATH']}"}
+        for nome in ("5x-bootstrap", "5x-waves", "5x-validate", "5x-cost", "5x-state", "5x-gate"):
+            r = subprocess.run([nome, "--help"], capture_output=True, text=True, env=env)
+            self.assertEqual(r.returncode, 0, f"{nome} --help falhou: {r.stderr}")
+
+    def test_comandos_nao_usam_path_absoluto_do_plugin(self):
+        """Path absoluto para fora do projeto e o que o harness bloqueia."""
+        for md in list((RAIZ / "commands").glob("*.md")) + list((RAIZ / "agents").glob("*.md")):
+            for linha in md.read_text(encoding="utf-8").splitlines():
+                if "CLAUDE_PLUGIN_ROOT" in linha and "/scripts/" in linha:
+                    self.fail(f"{md.name}: chama script por path absoluto -> {linha.strip()}")
+
+
 class TestGate(unittest.TestCase):
     def repo(self, d, conteudo):
         base = Path(d)

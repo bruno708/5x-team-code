@@ -39,7 +39,7 @@ projeto não volta para a mesa — é a economia mais barata do sistema.
 Estime antes de disparar:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-cost.py" estimate --tarefas <N> --modelo sonnet --avg-in 3000 --avg-out 800
+5x-cost estimate --tarefas <N> --modelo sonnet --avg-in 3000 --avg-out 800
 ```
 
 ## Contrato
@@ -47,7 +47,7 @@ python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-cost.py" estimate --tarefas <N> --mode
 Cada subagent devolve JSON validado. Rejeite retorno que não passa:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-validate.py" retorno.json --schema diagnostico
+5x-validate retorno.json --schema diagnostico
 ```
 
 Atualize o status no frontmatter da hipótese — `viva` → `confirmada` | `refutada`.

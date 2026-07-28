@@ -25,7 +25,7 @@ JSON válido contra `schemas/diagnostico.schema.json` do plugin 5x-team.
 Cole a saída bruta dos comandos — não resuma. Valide antes de devolver:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-validate.py" retorno.json --schema diagnostico
+5x-validate retorno.json --schema diagnostico
 ```
 
 Não conseguiu concluir? `veredito: "inconclusiva"` e explique o que faltou.

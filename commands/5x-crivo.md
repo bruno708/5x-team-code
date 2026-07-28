@@ -11,8 +11,8 @@ para o usuário confiar na redação de quem fez a prova e se autocorrigiu.
 ## Colete a evidência antes de escrever
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-gate.py" --justify
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-cost.py" summary --ciclo <c>
+5x-gate --justify
+5x-cost summary --ciclo <c>
 git diff <base>...HEAD --stat && git diff <base>...HEAD
 ```
 

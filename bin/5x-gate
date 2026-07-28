@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+# wrapper: torna o script invocavel como comando bare via bin/ do plugin
+exec python3 "$(dirname "$0")/../scripts/5x-gate.py" "$@"

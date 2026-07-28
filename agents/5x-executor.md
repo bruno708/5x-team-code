@@ -22,7 +22,7 @@ JSON válido contra `schemas/implementacao.schema.json` do plugin 5x-team.
 Valide antes de devolver:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/5x-validate.py" retorno.json --schema implementacao
+5x-validate retorno.json --schema implementacao
 ```
 
 Se o critério não foi atendido, reporte honestamente — `atendido: false` com a
