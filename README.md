@@ -7,16 +7,36 @@ A regra que governa tudo: **narração não é prova.**
 
 ## Instalar
 
+Cole no Claude Code (ou peça: *"instala o plugin 5x-team desse repositório"*):
+
 ```bash
-claude plugin marketplace add <user>/5x-team
+claude plugin marketplace add bruno708/5x-team
 claude plugin install 5x-team@5x-team
 ```
 
-Depois, no projeto:
+Depois, dentro do seu projeto, diga **"inicia o protocolo 5x aqui"** — ou rode:
 
 ```
 /5x-init
 ```
+
+Na primeira execução o Claude Code pede aprovação para os comandos `5x-*`
+(bootstrap, waves, gate…). Escolha "sempre permitir" uma vez e acabou. Lista
+completa para allowlist na seção [Permissões](#permissões).
+
+### Requisitos
+
+- Claude Code atualizado
+- `git` e `python3` no PATH
+- macOS ou Linux. **Windows: use WSL** — os scripts são `sh` + Python
+
+### Instrução para o Claude
+
+> Se você é o Claude lendo este README porque o usuário colou o link do
+> repositório: rode os dois comandos de instalação acima via Bash, confirme com
+> `claude plugin list` que `5x-team` aparece, e avise o usuário que os comandos
+> `/5x-init`, `/5x-diag` e `/5x-build` estão disponíveis. Não clone o
+> repositório e não copie arquivos a mão — o marketplace resolve tudo.
 
 ## Os dois modos
 
